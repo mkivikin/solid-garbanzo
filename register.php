@@ -1,52 +1,27 @@
 <?php
 
 require("functions.php");
-//require("registyle.css");
+require("control.css");
 require("config.php");
+require("control.js");
 	
 	$signupFirstName = "";
-	$signupFamilyName = "";
+	$signupLastName = "";
 	$signupEmail = "";
-	$signupUsername = "";
-	$signupPassword ="";
-    $confirmPassword ="";
+	$signupUserName = "";
+	//$signupPassword ="";
+    //$confirmPassword ="";
 	
 	$signupFirstNameError = "";
-	$signupFamilyNameError = "";
+	$signupLastNameError = "";
 	$signupEmailError = "";
 	$signupPasswordError = "";
-	$signupUsernameError= "";
+	$signupUserNameError= "";
 	$confirmPasswordError= "";
-	
-	
-		function validPW(){
-		if(strlen($_POST["signupPassword"]) < 8) {            
-		if(!ctype_upper($_POST["signupPassword"]) && !ctype_lower($_POST["signupPassword"])) {
-			return FALSE;
-		if($_POST["signupPassword"]=$_POST["confirmPassword"]){
-			return FALSE;
-	  }
-	}
-  }
-}
-	
 
 	
-	if(isset($_POST["signupButton"])){
+	if(isset($_POST["signupButton"])){	
 		
-		$test=validPW();
-		echo $test;
-	/*function validPW(){
-		if(strlen($_POST["signupPassword"]) < 8) {            
-		if(!ctype_upper($_POST["signupPassword"]) && !ctype_lower($_POST["signupPassword"])) {
-			return TRUE;
-		if($_POST["signupPassword"]=$_POST["confirmPassword"]){
-			return TRUE;
-	  }
-	}
-  }
-}*/
-	
 	if (isset ($_POST["signupFirstName"])){
 		if (empty($_POST["signupFirstName"])){
 			$signupFirstNameError ="NB! Väli on kohustuslik!";
@@ -55,11 +30,11 @@ require("config.php");
 		}
 	}
 	
-	if (isset ($_POST["signupFamilyName"])){
-		if (empty($_POST["signupFamilyName"])){
-			$signupFamilyNameError ="NB! Väli on kohustuslik!";
+	if (isset ($_POST["signupLastName"])){
+		if (empty($_POST["signupLastName"])){
+			$signupLastNameError ="NB! Väli on kohustuslik!";
 		} else {
-			$signupFamilyName =($_POST["signupFamilyName"]);
+			$signupLastName =($_POST["signupLastName"]);
 		}
 	}
 
@@ -77,60 +52,65 @@ require("config.php");
 	if (isset ($_POST["signupPassword"])){
 		if (empty ($_POST["signupPassword"])){
 			$signupPasswordError = "NB! Väli on kohustuslik!";
-		} else {
-			if (strlen($_POST["signupPassword"]) < 8){
-				$signupPasswordError = "NB! Liiga lühike salasõna, vaja vähemalt 8 tähemärki!";
+		}  else if (strlen($_POST["signupPassword"]) < 8) {
+			$signupPasswordError = "NB! Liiga lühike salasõna, vaja vähemalt 8 tähemärki!";
 			}
 		}
-	}
 	
 	if (isset ($_POST["confirmPassword"])){
 		if (empty ($_POST["confirmPassword"])){
 			$confirmPasswordError = "NB! Väli on kohustuslik!";
-		} else {
-			if ($_POST["confirmPassword"] != $_POST["signupPassword"]);
-				$signupUsernameError = "Paroolid ei kattu!";
+		} else if ($_POST["confirmPassword"] != $_POST["signupPassword"]){
+				$signupUserNameError = "Paroolid ei kattu!";
 			}
 		}
 	
-	if (isset ($_POST["signupUsername"])){
-		if (empty ($_POST["signupUsername"])){
+	if (isset ($_POST["signupUserName"])){
+		if (empty ($_POST["signupUserName"])){
 			$signupUsernameError = "NB! Väli on kohustuslik!";
 		} else {
-			if (strlen($_POST["signupUsername"]) < 6){
-				$signupUsernameError = "NB! Liiga lühike nimi, vaja vähemalt 6 tähemärki!";
-			}
-		}
-	}
+			$signupUserName =($_POST["signupUserName"]);
+		} /*else if (strlen($_POST["signupUserName"]) < 6){
+			$signupUserNameError = "NB! Liiga lühike nimi, vaja vähemalt 6 tähemärki!";
+	}*/
+  }
+
 	
 		/*$signupPassword = hash("sha512", $_POST["signupPassword"]);
-		signUp($signupFirstName, $signupFamilyName, $signupEmail, $signupPassword, $signupUsername);
-	/*	
+		signUp($signupUserName, $signupPassword, $signupEmail, $signupFirstName, $signupLastName);*/
+		
 	if (!empty($_POST["signupButton"])){
 		echo "Hakkan salvestama!";
 		$signupPassword = hash("sha512", $_POST["signupPassword"]);
-		signUp($signupFirstName, $signupFamilyName, $signupEmail, $signupPassword, $signupUsername);
-	}*/
+		signUp($signupUserName, $signupPassword, $signupEmail, $signupFirstName, $signupLastName);
+	}
 	}
 ?>
 <!DOCTYPE html>
-
+<head>
+</head>
+<body>
+<div class="container">
 <form  method="POST">
   <h1>Registreeri</h1><br/>
 
   <span class="input"></span>
   <input type="text" name="signupFirstName" placeholder="Eesnimi" required />
   <span class="input"></span>
-  <input type="text" name="signupFamilyName" placeholder="Perekonnanimi" required />
+  <input type="text" name="signupLastName" placeholder="Perekonnanimi" required />
   <span class="input"></span>
-  <input type="email" name="signupEmail" placeholder="Email" required />
-  <span class="input"></span>
-  <input type="username" name="signupUsername" placeholder="Kasutajanimi" required />
-  <span id="passwordMeter"></span>
-  <input type="password" name="signupPassword" id="password" placeholder="Parool" required />
-  <span class="input"></span>
-  <input type="password" name="confirmPassword" id="password" placeholder="Korda parooli" required />
-
-  <button type="submit" name="signupButton" value="Sign Up" title="Submit form" class="icon-arrow-right" ><span>Registreeru</span></button>
+  <input type="email" name="signupEmail" placeholder="Email" title="Näidisemail kasutaja@kasutaja.ee" required />
+  <span class="input" span>
+  <input type="text" name="signupUserName" placeholder="Kasutajatunnus" id="username" pattern=".{6,}" title="Kasutajatunnus peab olema vähemalt 6 tähemärgi pikkune!" onchange="validate()" required />
+  <span class="input" id="span1"></span>
+  <input type="password" name="signupPassword" id="password" placeholder="Parool" onchange="checkPassword()" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Peab sisaldama vähemalt ühte suurt tähte, ühte väikest tähte, ühte numbrit ning pikkuselt vähemalt 8 tähemärki!" required />
+  <span class="input" id="span2"></span>
+  <input type="password" name="confirmPassword" id="cpassword" onchange="checkPassword()" placeholder="Korda parooli"required />
+  <span id='message'></span>
+  <br></br>
+  <button type="submit" name="signupButton" id="submit" value="submit" title="Submit form" class="icon-arrow-right" onclick="checkPassword()" ><span>Registreeru</span></button>
 </form>
+</div>
+
+</body>
 </html>

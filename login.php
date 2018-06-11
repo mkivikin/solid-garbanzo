@@ -4,24 +4,24 @@
 	require("config.php");
 	
 	$notice = "";
-	$loginUsername = "";
+	$loginUserName = "";
 	$loginPassword = "";
-	$loginEmailError = "";
+	$loginUsernameError = "";
 	$loginPasswordError = "";
 	
 
 	if(isset($_POST["loginButton"])){
 	
-	if (isset ($_POST["loginUsername"])){
-		if (empty ($_POST["loginUsername"])){
+	if (isset ($_POST["loginUserName"])){
+		if (empty ($_POST["loginUserName"])){
 			$loginUsernameError ="NB! Sisselogimiseks on vajalik kasutajatunnus!";
 		} else {
-			$loginUsername = $_POST["loginUsername"];
+			$loginUserName = $_POST["loginUserName"];
 		}
 	}
 	
-	if(!empty($loginUsername) and !empty($_POST["loginPassword"])){
-		$notice = signIn($loginUsername, $_POST["loginPassword"]);
+	if(!empty($loginUserName) and !empty($_POST["loginPassword"])){
+		$notice = signIn($loginUserName, $_POST["loginPassword"]);
 	}
 	}
 	
@@ -35,7 +35,7 @@
   
   
   
-      <link rel="stylesheet" href="css/style.css">
+      <!--<link rel="stylesheet" href="css/style.css">-->
 
   
 </head>
@@ -47,7 +47,7 @@
   <h1>Logi Sisse</h1>
   <p>Kasutaja puudumisel on teil võimalus registeerida uus kasutaja</p>
     <form class="login-form" method="POST">
-      <input type="text" name="loginUsername" placeholder="Kasutajatunnus" required />
+      <input type="text" name="loginUserName" placeholder="Kasutajatunnus" required />
       <input type="password" name="loginPassword" placeholder="Parool" required />
       <input name="loginButton" type="submit" value="Logi Sisse"> <span><?php echo $notice; ?></span>
     </form>

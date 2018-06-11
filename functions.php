@@ -3,24 +3,24 @@ session_start();
 $database = "if17_Stressmap";
 require("config.php");
 
-	function signIn($loginUsername, $loginPassword){
+	function signIn($loginUserName, $loginPassword){
 		$notice = "";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, username, firstname, lastname, email, password FROM chatusers WHERE email = ?");
-		$stmt->bind_param("s", $loginUsername);
-		$stmt->bind_result($id, $usernameFromDb, $firstnameFromDb, $lastnameFromDb, $emailFromDb, $passwordFromDb);
+		$stmt = $mysqli->prepare("SELECT UserID, UserName, Password, Email, FirstName, LastName FROM Users WHERE UserName = ?");
+		$stmt->bind_param("s", $loginUserName);
+		$stmt->bind_result($UserId, $UserNameFromDb, $PasswordFromDb, $EmailFromDb, $FirstNameFromDb, $LastNameFromDb);
 		$stmt->execute();
 		
-		if ($stmt->fetch()){
+		if ($stmt->fetch()){	
 			$hash = hash("sha512", $loginPassword);
-			if ($hash == $passwordFromDb){
+			if ($hash == $PasswordFromDb){
 				$notice = "Logisite sisse!";
 				
 				$_SESSION["userId"] = $id;
-				$_SESSION["username"] = $usernameFromDb;
-				$_SESSION["firstname"] = $firstnameFromDb;
-				$_SESSION["lastname"] = $lastnameFromDb;
-				$_SESSION["userEmail"] = $emailFromDb;
+				$_SESSION["username"] = $UserNameFromDb;
+				$_SESSION["firstname"] = $FirstNameFromDb;
+				$_SESSION["lastname"] = $LastNameFromDb;
+				$_SESSION["userEmail"] = $EmailFromDb;
 				
 				
 				header("Location: index.php");
@@ -29,21 +29,20 @@ require("config.php");
 				$notice = "Sisestasite vale salasõna!";
 			}
 		} else {
-			$notice = "Sellist kasutajat (" .$username .") ei ole!";
+			$notice = "Sellist kasutajat (" .$loginUserName .") ei ole!";
 		}
 		return $notice;
 	}
 
 
-function signUp($signupUsername, $signupPassword, $signupEmail, $signupFirstName, $signupFamilyName){
-	
+function signUp($signupUserName, $signupPassword, $signupEmail, $signupFirstName, $signupLastName){
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
 	$stmt = $mysqli->prepare("INSERT INTO Users (UserName, Password, Email, FirstName, LastName) VALUES (?, ?, ?, ?, ?)");
 	echo $mysqli->error;
 	//s - string
 	//i - integer
 	//d - decimal
-	$stmt->bind_param("sssss",  $signupUsername, $signupPassword, $signupEmail, $signupFirstName, $signupFamilyName);
+	$stmt->bind_param("sssss",  $signupUserName, $signupPassword, $signupEmail, $signupFirstName, $signupLastName);
 	//$stmt->execute();
 	if ($stmt->execute()){
 		//echo "\n Õnnestus!";
