@@ -4,6 +4,44 @@ $database = "if17_Stressmap";
 require('../../config.php');
 
 //=============================START OF GPXREAD===========================================
+function createExperiment($experimentName, $experimentCreator) {
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
+	$stmt = $mysqli->prepare("INSERT INTO Experiments (ExperimentCreator, ExperimentName) values (?, ?)");
+	$stmt->bind_param('ss', $experimentCreator, $experimentName);
+	$stmt->execute();
+	$stmt = $mysqli->prepare("SELECT ExperimentID FROM Experiments ORDER BY ExperimentDate DESC LIMIT 1;");
+	$stmt->bind_result($experimentID);
+	$stmt->execute();
+	if($stmt->fetch()) {
+		return $experimentID;
+	} else {
+		return "Experiment not created";
+	}
+}
+
+function filestoDB($files, $experimentID){
+	$gpx = array();
+	$csv = array();
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
+	$stmt = $mysqli->prepare("INSERT INTO Files (FileName, ExperimentID) values (?, ?)");
+	foreach($files as $file) {
+		$stmt->bind_param('si', $file, $experimentID);
+		$stmt->execute();
+		if(strpos($file, '.gpx') !== false) {
+			array_push($gpx, $file);
+		}
+		if(strpos($file, '.csv') !== false) {
+			array_push($csv, $file);
+		}
+		}
+		foreach($gpx as $gpxfile) {
+			readGpx($gpxfile, $experimentID);
+		}
+		foreach($csv as $csvfile) {
+			readMuse($csvfile, $experimentID);
+	}
+}
+
 
 function checkDaylightSavingTime(){
 	if (date('I') == 1) {
@@ -21,17 +59,9 @@ function readGpx($fileName, $experimentID){
 	$stmt = $mysqli->prepare("INSERT INTO Markers (ExperimentID, Latitude, Longitude, MarkerTime) values (?, ?, ?, ?)");
 	foreach($lines->trk->trkseg as $segment) {
 		foreach($segment->trkpt as $point) {
-			echo $point['lat'];
-			echo '<br>';
-			echo $point['lon'];
-			echo '<br>';
-			//echo $point->time;
 			$insertTime = str_replace('T', ' ', $point->time);
 			$insertTime = str_replace('Z', ' ', $insertTime);
-			echo $insertTime;
-			echo '<br>';
 			$stmt->bind_param('isss', $experimentID, $point['lat'], $point['lon'], $insertTime);
-			echo $mysqli->error;
 			$stmt->execute();
 		}
 	}
@@ -41,20 +71,23 @@ function readGpx($fileName, $experimentID){
 //=============================END OF GPXREAD===========================================
 
 //=============================START OF MUSEREAD===========================================
-function readMuse($fileName){
+function readMuse($fileName, $experimentID){
 	$csv = array();
 	$data = array();
 	$lines1 = file('museTest.csv', FILE_IGNORE_NEW_LINES);
 	foreach($lines1 as $key => $value) {
 		$csv[$key] = str_getcsv($value);
 	}
+	echo'siin';
 	$len = count($csv);
 	$readingCount = 1;
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
 	$mysqli1 = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
-	$stmt = $mysqli->prepare("SELECT markerID, markerTime FROM Markers where experimentID = 1 ");
+	$stmt = $mysqli->prepare("SELECT markerID, markerTime FROM Markers where experimentID = ? ");
+	$stmt->bind_param('i', $experimentID);
 	$stmt->bind_result($markerID, $markerTime);
 	$stmt->execute();
+	echo 'select marker';
 	$counter = 0;
 	$stmt1 = $mysqli1->prepare("INSERT INTO Measurements (MarkerID, AlphaValue, BetaValue, GammaValue, DeltaValue, ThetaValue) values (?, ?, ?, ?, ?, ?)");
 	while($stmt->fetch()) {
