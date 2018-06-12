@@ -15,7 +15,16 @@ function initMap(){
             let counter = 0;
             for(m in markers) {
                 pos = new google.maps.LatLng(markers[m][1], markers[m][2]);
-
+                if(counter != 0) {
+                  posprev = new google.maps.LatLng(markers[counter-1][1], markers[counter-1][2]);
+                  var pathBetween = new google.maps.Polyline({
+                    path: [posprev, pos],
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                  });
+                  pathBetween.setMap(map);
+                }
                 var infowindow = new google.maps.InfoWindow({
                 content: markers[m][0].toString()
                 });
@@ -28,6 +37,7 @@ function initMap(){
                 marker.addListener('click', function() {
                 infowindow.open(map, this);
             });
+            counter++
           }
         }
     };
