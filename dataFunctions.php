@@ -58,11 +58,17 @@ function readGpx($fileName, $experimentID){
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
 	$stmt = $mysqli->prepare("INSERT INTO Markers (ExperimentID, Latitude, Longitude, MarkerTime) values (?, ?, ?, ?)");
 	foreach($lines->trk->trkseg as $segment) {
+	 $count = 0;
 		foreach($segment->trkpt as $point) {
-			$insertTime = str_replace('T', ' ', $point->time);
-			$insertTime = str_replace('Z', ' ', $insertTime);
-			$stmt->bind_param('isss', $experimentID, $point['lat'], $point['lon'], $insertTime);
-			$stmt->execute();
+			if($count % 4 == 0) {
+				$insertTime = str_replace('T', ' ', $point->time);
+				$insertTime = str_replace('Z', ' ', $insertTime);
+				$stmt->bind_param('isss', $experimentID, $point['lat'], $point['lon'], $insertTime);
+				$stmt->execute();
+			} else {
+				//skip
+			}
+			$count++;
 		}
 	}
 	$stmt->close();
