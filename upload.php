@@ -33,7 +33,10 @@ if(!empty($_POST["experimentName"])) {
 				}
 				} else {
 				$failed[$position] = "[{$file_name}] file extension '{$file_ext}' is not valid";
-				}
+				} else {
+				  for ($i = 0; $i < count($failed); $i++) {
+				      echo $failed[i];
+				  }
 			}
 			if(!empty($uploaded)) {
 				$experimentID = createExperiment($_POST["experimentName"], 53);
