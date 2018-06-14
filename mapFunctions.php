@@ -1,7 +1,7 @@
 <?php
 
 $database = "if17_Stressmap";
-require('../../config.php');
+require('config.php');
 require('dataFunctions.php');
 /*If($_POST["action"]="test"){
     echo "ASDASDASDASFDSV DFV";
@@ -11,10 +11,14 @@ function loadMarkers($experimentID){
   cleanMarkers();
   $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
   //$stmt = $mysqli->prepare("SELECT MarkerID, Latitude, Longitude FROM Markers");
-  $stmt = $mysqli->prepare("SELECT Markers.MarkerID, Markers.Latitude, Markers.Longitude, AVG(Measurements.AlphaValue)
+  $stmt = $mysqli->prepare("SELECT Markers.MarkerID, Markers.Latitude, Markers.Longitude, AVG(Measurements.AlphaValue), AVG(Measurements.BetaValue),
+  AVG(Measurements.GammaValue), AVG(Measurements.ThetaValue), AVG(Measurements.DeltaValue), Experiments.ExperimentID, Experiments.ExperimentCreator,
+  Experiments.ExperimentDate, Experiments.ExperimentID, Experiments.Gender, Experiments.Age
     FROM Measurements
     INNER JOIN Markers
     ON Measurements.MarkerID = Markers.MarkerID
+    INNER JOIN Experiments
+    ON Markers.ExperimentID = Markers.ExperimentID
     GROUP BY MarkerID;");
   //$stmt->bind_param("i", $experimentID);
   $stmt->bind_result($markerID, $latitude, $longitude, $aVal);

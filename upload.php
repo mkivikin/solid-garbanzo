@@ -33,13 +33,13 @@ if(!empty($_POST["experimentName"])) {
 				}
 				} else {
 				$failed[$position] = "[{$file_name}] file extension '{$file_ext}' is not valid";
-				} else {
+			} /*else {
 				  for ($i = 0; $i < count($failed); $i++) {
 				      echo $failed[i];
-				  }
+				  }*/
 			}
 			if(!empty($uploaded)) {
-				$experimentID = createExperiment($_POST["experimentName"], 53);
+				$experimentID = createExperiment($_POST["experimentName"], 53, $_POST["experimentGender"] ,$_POST["experimentAge"]);
 				FilestoDB($uploaded, $experimentID);
 			}
 	}
@@ -62,6 +62,21 @@ if(!empty($_POST["experimentName"])) {
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 				<span id="experimentNameSpan">Eksperimendi nimi: </span>
 				<input type="text" name="experimentName" id="experimentName">
+				<br>
+				<span id="experimentGender">Eksperimendi katsealuse sugu: </span>
+				<select name="experimentGender">
+					<option value="">Select...</option>
+					<option value="">Male</option>
+					<option value="">Female</option>
+				</select>
+				<br>
+				<span id="experimentAge">Eksperimendi katsealuse vanus: </span>
+				<select name="experimentAge">
+					<option value="">Select...</option>
+					<?php foreach(range(0,120) as $value){
+						echo('<option value="' . $value . '">' . $value . '</option>');
+					}?>
+				</select>
 				<br>
 				<h1>Lohista failid siia</h1>
 				<!--<div id="dropfiles" class="dropfile" ondrop="upload(event, this)" ondragover="onDrag(event, this)" ondragleave="onLeave(event, this)"></div> -->
