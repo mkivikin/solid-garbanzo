@@ -8,6 +8,7 @@ require('dataFunctions.php');
 }*/
 
 function loadMarkers($experimentID){
+  //
   cleanMarkers();
   $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
   //$stmt = $mysqli->prepare("SELECT MarkerID, Latitude, Longitude FROM Markers");
