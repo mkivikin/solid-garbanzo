@@ -73,7 +73,7 @@ if(!empty($_POST["experimentName"])) {
 				<span id="experimentAge">Eksperimendi katsealuse vanus: </span>
 				<select name="experimentAge">
 					<option value="">Select...</option>
-					<?php foreach(range(0,120) as $value){
+					<?php foreach(range(1,120) as $value){
 						echo('<option value="' . $value . '">' . $value . '</option>');
 					}?>
 				</select>
