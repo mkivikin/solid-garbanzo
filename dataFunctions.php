@@ -26,6 +26,13 @@ function cleanMarkers() {
 	$stmt->execute();
 }
 
+function cleanExperiments() {
+	//Function that deletes all the experiments without any markers referencing to them
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
+	$stmt = $mysqli->prepare("DELETE FROM Experiments WHERE ExperimentID not in (SELECT ExperimentID FROM Markers);");
+	$stmt->execute();
+}
+
 function filestoDB($files, $experimentID){
 	$gpx = array();
 	$csv = array();
