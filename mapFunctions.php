@@ -13,7 +13,7 @@ function loadMarkers($experimentID){
   //$stmt = $mysqli->prepare("SELECT MarkerID, Latitude, Longitude FROM Markers");
   $stmt = $mysqli->prepare("SELECT Markers.MarkerID, Markers.Latitude, Markers.Longitude, AVG(Measurements.AlphaValue), AVG(Measurements.BetaValue),
   AVG(Measurements.GammaValue), AVG(Measurements.ThetaValue), AVG(Measurements.DeltaValue), Experiments.ExperimentID, Experiments.ExperimentCreator,
-  Experiments.ExperimentDate, Experiments.ExperimentID, Experiments.Gender, Experiments.Age
+  Experiments.ExperimentDate, Experiments.Gender, Experiments.Age
     FROM Measurements
     INNER JOIN Markers
     ON Measurements.MarkerID = Markers.MarkerID
