@@ -66,8 +66,8 @@ if(!empty($_POST["experimentName"])) {
 				<span id="experimentGender">Eksperimendi katsealuse sugu: </span>
 				<select name="experimentGender">
 					<option value="">Select...</option>
-					<option value="">Male</option>
-					<option value="">Female</option>
+					<option value="Male">Mees</option>
+					<option value="Female">Naine</option>
 				</select>
 				<br>
 				<span id="experimentAge">Eksperimendi katsealuse vanus: </span>

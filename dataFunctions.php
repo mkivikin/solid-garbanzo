@@ -137,7 +137,5 @@ function readMuse($fileName, $experimentID){
 	$mysqli->close();
 	$mysqli1->close();
 }
-
-//=============================END OF MUSEREAD===========================================
-
+//============================END OF MUSEREAD===========================================
 ?>
