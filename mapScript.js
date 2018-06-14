@@ -52,9 +52,11 @@ function initMap(){
 
 function createHeatmap(markers, map) {
     var heatmapData = new Array();
+    var weight;
     for(m in markers) {
         pos = new google.maps.LatLng(markers[m][1], markers[m][2]);
-        var weightedPos = {location: pos, weight: (markers[m][3]*10)};
+        var weight = reciprocal(markers[m][3]);
+        var weightedPos = {location: pos, weight: (weight*100)};
         heatmapData.push(weightedPos);
     }
       var heatmap = new google.maps.visualization.HeatmapLayer({
@@ -71,4 +73,27 @@ function checkBox(id){
     fetchMarkers("byExperimentID", id);
     console.log("Ahoy");
   }
+}
+
+function reciprocal(number){
+var gcd = function(a, b) {
+  if (b < 0.0000001) return a;                // Since there is a limited precision we need to limit the value.
+
+  return gcd(b, Math.floor(a % b));           // Discard any fractions due to limitations in precision.
+};
+
+var fraction = number;
+var len = fraction.toString().length - 2;
+
+var denominator = Math.pow(10, len);
+var numerator = fraction * denominator;
+
+var divisor = gcd(numerator, denominator);    // Should be 5
+
+numerator /= divisor;                         // Should be 687
+denominator /= divisor;                       // Should be 2000
+
+var test = denominator / numerator;
+console.log(test);
+return test;
 }
