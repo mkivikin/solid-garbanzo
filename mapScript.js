@@ -1,48 +1,55 @@
 function initMap(){
-  fetchMarkers();
     var options = {
       zoom:10,
       streetViewControl: false,
-      center:{lat:59.4286454, lng:24.7321419}
+      center:{lat:59.4286454, lng:24.7321419},
+      maxZoom: 19
     }
-    let map = new google.maps.Map(document.getElementById('map'), options);
+    var map = new google.maps.Map(document.getElementById('map'), options);
+    fetchMarkers();
+
+
     //=================fetchMarkers Start============================
     function fetchMarkers() {
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var markers = JSON.parse(this.responseText);
-            let counter = 0;
+            var heatmapData = new Array();
             for(m in markers) {
                 pos = new google.maps.LatLng(markers[m][1], markers[m][2]);
-                if(counter != 0) {
-                  posprev = new google.maps.LatLng(markers[counter-1][1], markers[counter-1][2]);
-                  var pathBetween = new google.maps.Polyline({
-                    path: [posprev, pos],
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 1.0,
-                    strokeWeight: 2
-                  });
-                  pathBetween.setMap(map);
-                }
-                var infowindow = new google.maps.InfoWindow({
-                content: markers[m][0].toString()
-                });
+                var weightedPos = {location: pos, weight: (markers[m][3]*10)};
+                heatmapData.push(weightedPos);
+            }
+              var heatmap = new google.maps.visualization.HeatmapLayer({
+              data: heatmapData,
+              map: map
+              });
 
-                var marker = new google.maps.Marker({
-                      map: map,
-                      position: pos,
-                      title : toString(markers[m][0])
-                });
-                marker.addListener('click', function() {
-                infowindow.open(map, this);
-            });
-            counter++
-          }
-        }
-    };
-    xmlhttp.open("GET", "mapFunctions.php", true);
-    xmlhttp.send();
+              /*google.maps.event.addListener(map, 'zoom_changed', function(){
+                  var zoom = map.getZoom();
+                  console.log(zoom);
+                  if (zoom >= 14){
+                    heatmap.setOptions({
+                    dissipating: true,
+                    maxIntensity: 2000
+                  });
+                } else {
+                  heatmap.setOptions({
+                    dissipating: false,
+                    radius: 20,
+                    maxIntensity: 2000
+                  });
+                }
+              });*/
+
+        };
+      }
+      /*$.post("mapFunctions.php", {action:"test"}, function(result){
+            var markers = result;
+        });*/
+      xmlhttp.open("GET", "mapFunctions.php", true);
+      xmlhttp.send();
     }
     //==========================fetchMarkers End========================
 }

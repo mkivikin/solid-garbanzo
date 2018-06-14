@@ -19,6 +19,13 @@ function createExperiment($experimentName, $experimentCreator) {
 	}
 }
 
+function cleanMarkers() {
+	//Function that deletes all the markers without any measurements referencing to them
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
+	$stmt = $mysqli->prepare("DELETE FROM Markers WHERE MarkerID not in (SELECT MarkerID FROM Measurements);");
+	$stmt->execute();
+}
+
 function filestoDB($files, $experimentID){
 	$gpx = array();
 	$csv = array();
@@ -60,14 +67,10 @@ function readGpx($fileName, $experimentID){
 	foreach($lines->trk->trkseg as $segment) {
 	 $count = 0;
 		foreach($segment->trkpt as $point) {
-			if($count % 4 == 0) {
 				$insertTime = str_replace('T', ' ', $point->time);
 				$insertTime = str_replace('Z', ' ', $insertTime);
 				$stmt->bind_param('isss', $experimentID, $point['lat'], $point['lon'], $insertTime);
 				$stmt->execute();
-			} else {
-				//skip
-			}
 			$count++;
 		}
 	}
@@ -113,7 +116,7 @@ function readMuse($fileName, $experimentID){
 			$readingCount++;
 			if($timeObject <= $markerTimeObject){
 				if($aVal != 0 || $bVal != 0 || $gVal != 0 || $dVal != 0 || $tVal != 0){
-					$stmt1->bind_param('isssss', $markerID, $aVal, $bVal, $gVal, $dVal, $tVal);
+					$stmt1->bind_param('iddddd', $markerID, $aVal, $bVal, $gVal, $dVal, $tVal);
 					$stmt1->execute();
 				} else {
 					//Faulty readings wont be entered in to the database

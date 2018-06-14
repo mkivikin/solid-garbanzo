@@ -15,7 +15,8 @@
 <body>
 <h1>Map</h1>
 <div id="map"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="mapScript.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodsu1bZRowWo0767dbprzUHMPvVZe7l0&callback=initMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodsu1bZRowWo0767dbprzUHMPvVZe7l0&callback=initMap&libraries=visualization"></script>
 </body>
 <html>
