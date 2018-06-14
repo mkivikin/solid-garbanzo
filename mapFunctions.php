@@ -3,11 +3,11 @@
 $database = "if17_Stressmap";
 require('config.php');
 require('dataFunctions.php');
-/*If($_POST["action"]="test"){
-    echo "ASDASDASDASFDSV DFV";
-}*/
+if($_POST["action"]="default"){
+    echo json_encode(loadMarkers());
+}
 
-function loadMarkers($experimentID){
+function loadMarkers(){
   //
   cleanMarkers();
   $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
@@ -36,8 +36,6 @@ function loadMarkers($experimentID){
   }
   return $output;
 }
-
-echo json_encode(loadMarkers(13));
 //SELECT avg(AlphaValue) FROM Measurements where MarkerID = 1200;
 //SELECT Marker.MarkerID, Marker.Latitude, Marker.Longitude, avg(AlphaValue) FROM Markers
 ?>
