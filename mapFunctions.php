@@ -21,13 +21,13 @@ function loadMarkers($experimentID){
     ON Markers.ExperimentID = Markers.ExperimentID
     GROUP BY MarkerID;");
   //$stmt->bind_param("i", $experimentID);
-  $stmt->bind_result($markerID, $latitude, $longitude, $aVal);
+  $stmt->bind_result($markerID, $latitude, $longitude, $aVal, $bVal, $gVal, $tVal, $dVal, $experimentID, $creator, $date, $gender, $age);
   $stmt->execute();
   if($stmt->fetch()) {
     //1460-1485
     $output = array();
     while($stmt->fetch()) {
-      $line = array($markerID, $latitude, $longitude, $aVal);
+      $line = array($markerID, $latitude, $longitude, $aVal, $bVal, $gVal, $tVal, $dVal, $experimentID, $creator, $date, $gender, $age);
       array_push($output, $line);
     }
   } else {
