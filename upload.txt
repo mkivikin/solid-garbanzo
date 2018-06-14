@@ -1,0 +1,31 @@
+<?php
+require('dataFunctions.php');
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="upload.css">
+	<script src="upload.js" defer></script>
+	<title>
+		Marek
+	</title>
+</head>
+<body>
+		<div id="formContainer">
+			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+				<span id="experimentNameSpan">Eksperimendi nimi: </span>
+				<input type="text" name="experimentName" id="experimentName">
+				<br>
+				<h1>Lohista GPX fail siia</h1>
+				<div id="dropGPX" class="dropfile" ondrop="upload(event, this)" ondragover="onDrag(event, this)" ondragleave="onLeave(event, this)">1</div>
+				<h1>Lohista CSV fail siia</h1>
+				<div id="dropCSV" class="dropfile" ondrop="upload(event, this)" ondragover="onDrag(event, this)" ondragleave="onLeave(event, this)">1</div>
+				<input type="submit" value="Loo eksperiment" name="submit">
+			</form>
+		</div>
+	</p>
+
+</body>
+</html>

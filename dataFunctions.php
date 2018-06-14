@@ -4,10 +4,10 @@ $database = "if17_Stressmap";
 require('../../config.php');
 
 //=============================START OF GPXREAD===========================================
-function createExperiment($experimentName, $experimentCreator) {
+function createExperiment($experimentName, $experimentCreator, $experimentAge, $experimentGender) {
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
-	$stmt = $mysqli->prepare("INSERT INTO Experiments (ExperimentCreator, ExperimentName) values (?, ?)");
-	$stmt->bind_param('ss', $experimentCreator, $experimentName);
+	$stmt = $mysqli->prepare("INSERT INTO Experiments (ExperimentCreator, ExperimentName, Gender, Age) values (?, ?, ?, ?)");
+	$stmt->bind_param('ssis', $experimentCreator, $experimentName, $experimentAge, $experimentGender);
 	$stmt->execute();
 	$stmt = $mysqli->prepare("SELECT ExperimentID FROM Experiments ORDER BY ExperimentDate DESC LIMIT 1;");
 	$stmt->bind_result($experimentID);
@@ -87,7 +87,6 @@ function readMuse($fileName, $experimentID){
 	foreach($lines1 as $key => $value) {
 		$csv[$key] = str_getcsv($value);
 	}
-	echo'siin';
 	$len = count($csv);
 	$readingCount = 1;
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
@@ -96,7 +95,6 @@ function readMuse($fileName, $experimentID){
 	$stmt->bind_param('i', $experimentID);
 	$stmt->bind_result($markerID, $markerTime);
 	$stmt->execute();
-	echo 'select marker';
 	$counter = 0;
 	$stmt1 = $mysqli1->prepare("INSERT INTO Measurements (MarkerID, AlphaValue, BetaValue, GammaValue, DeltaValue, ThetaValue) values (?, ?, ?, ?, ?, ?)");
 	while($stmt->fetch()) {
