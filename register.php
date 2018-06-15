@@ -96,7 +96,7 @@ require("control.js");
 <style>
 	body{
 		padding-top: 5%;
-		background-color: #F8F9F9; 
+		/**background-color: #F8F9F9; **/
 	}
 	.padded{
 		padding-top:2px;
