@@ -5,6 +5,7 @@ function initMap(){
       center:{lat:59.4286454, lng:24.7321419},
       maxZoom: 19
     }
+
     var map = new google.maps.Map(document.getElementById('map'), options);
     var action = "default";
     var value = "";
@@ -96,4 +97,16 @@ denominator /= divisor;                       // Should be 2000
 var test = denominator / numerator;
 console.log(test);
 return test;
+}
+
+function theFilter(input, key){
+  var filteredInput = new Array();
+  for (i = 0; i < input.length; i++) {
+    for (j = 0; j < input[i].length;  j++) {
+      if(key.includes(input[i][j])) {
+        filteredInput.push(input[i][j]);
+      }
+    }
+  }
+  return(filteredInput);
 }
