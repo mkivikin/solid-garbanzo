@@ -19,24 +19,6 @@ function initMap(){
             var markers = JSON.parse(this.responseText);
             console.log(markers);
             createHeatmap(markers, map);
-
-              /*google.maps.event.addListener(map, 'zoom_changed', function(){
-                  var zoom = map.getZoom();
-                  console.log(zoom);
-                  if (zoom >= 14){
-                    heatmap.setOptions({
-                    dissipating: true,
-                    maxIntensity: 2000
-                  });
-                } else {
-                  heatmap.setOptions({
-                    dissipating: false,
-                    radius: 20,
-                    maxIntensity: 2000
-                  });
-                }
-              });*/
-
         };
       }
       /*$.post("mapFunctions.php", {action:"test"}, function(result){
@@ -55,8 +37,8 @@ function createHeatmap(markers, map) {
     var heatmapData = new Array();
     var weight;
     for(m in markers) {
-        pos = new google.maps.LatLng(markers[m][1], markers[m][2]);
-        var weight = reciprocal(markers[m][3]);
+        pos = new google.maps.LatLng(markers[m]["Latitude"], markers[m]["Longitude"]);
+        var weight = reciprocal(markers[m]["alphamedian"]);
         var weightedPos = {location: pos, weight: (weight*100)};
         heatmapData.push(weightedPos);
     }
@@ -64,6 +46,23 @@ function createHeatmap(markers, map) {
       data: heatmapData,
       map: map
     });
+    heatmap.setOptions({
+      maxIntensity: 2000});
+
+
+                    google.maps.event.addListener(map, 'zoom_changed', function(){
+                        var zoom = map.getZoom();
+                        console.log(zoom);
+                        if (zoom == 16){
+                          heatmap.setOptions({
+                          maxIntensity: 2000
+                        });
+                      } else {
+                        heatmap.setOptions({
+                          maxIntensity: 3000
+                        });
+                      }
+                    });
 }
 
 

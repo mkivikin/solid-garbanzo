@@ -138,4 +138,19 @@ function readMuse($fileName, $experimentID){
 	$mysqli1->close();
 }
 //============================END OF MUSEREAD===========================================
+
+function loadExperiments() {
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
+	$stmt = $mysqli->prepare("SELECT ExperimentID, Users.UserName, ExperimentName, ExperimentDate, Gender, Age FROM Experiments
+		INNER JOIN Users on Experiments.ExperimentCreator = Users.UserID
+	");
+	$stmt->bind_result($experimentID, $experimentCreator, $ExperimentName, $ExperimentDate, $gender, $age);
+	$stmt->execute();
+	while($stmt->fetch()) {
+		echo '<tr><td>'.$experimentID .'</td><td>'. $experimentCreator .'</td><td>'.$ExperimentDate.'</td><td>' .$ExperimentName .'</td><td>'. $gender .'</td><td>'. $age.'</td><td><a class="btn" href="editExperiment.php?id='.$experimentID.'">Edit</a></td></tr>';
+		echo '<br>';
+	}
+	$stmt->close();
+	$mysqli->close();
+}
 ?>

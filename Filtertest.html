@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <script>
+    function filterTest(input, key){
+      var filteredInput = new Array();
+      for (i = 0; i < input.length; i++) {
+        for (j = 0; j < input[i].length;  j++) {
+          if(key.includes(input[i][j])) {
+            filteredInput.push(input[i][j]);
+          }
+        }
+      }
+      return(filteredInput);
+    }
+    cars = ["car1", "car2", "car3"];
+    bikes = ["bike1", "bike2", "bike3"];
+    boats = ["boat1", "boat2", "boat3", "boat3"];
+    vehicles = [cars, bikes, boats];
+    filterkey = ["boat1", "boat2"];
+    var filteredvehicles = filterTest(vehicles, filterkey);
+    console.log(filteredvehicles);
+    </script>
+  </body>
+</html>
