@@ -51,24 +51,74 @@ if(!empty($_POST["experimentName"])) {
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="upload.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="vendor/bootstrap/css/upload.css" rel="stylesheet">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 	<!--<script src="upload.js" defer></script>-->
 	<title>
-		Marek
+		Failide laadimine
 	</title>
+	<style>
+		body{
+			padding-top: 10%;
+        	background-image: url("dsg/map.jpg");
+        	background-size: 100%;
+        	background-repeat: no-repeat;
+        	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+			}
+
+ .login-header{
+        font-size: 30px;
+        padding-top: 1px;
+        padding-bottom: 20px;
+        color: #2FC0AE;
+      }
+
+	</style>
+
 </head>
 <body>
+
+<!-- Navbar -->
+     <nav class="shadow navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.php">Stressikaart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="map.php">Kaart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="upload.php">Lisa faile</a>
+            </li>
+            <li class="nav-item">
+              <a class="login" href="register.php">Registreeri</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
 		<div id="formContainer">
+			<div class="box container">
+				<div class="col-xs-12">
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-				<span id="experimentNameSpan">Eksperimendi nimi: </span>
-				<input type="text" name="experimentName" id="experimentName">
+				<input class="form-control" type="text" name="experimentName" id="experimentName" placeholder="Eksperimendi nimi">
 				<br>
-				<span id="experimentGender">Eksperimendi katsealuse sugu: </span>
-				<select name="experimentGender">
+			
+					<span id="experimentGender">Eksperimendi katsealuse sugu: </span>
+					<select name="experimentGender">
 					<option value="">Select...</option>
 					<option value="Male">Mees</option>
 					<option value="Female">Naine</option>
 				</select>
+	
 				<br>
 				<span id="experimentAge">Eksperimendi katsealuse vanus: </span>
 				<select name="experimentAge">
@@ -78,10 +128,20 @@ if(!empty($_POST["experimentName"])) {
 					}?>
 				</select>
 				<br>
-				<h1>Lohista failid siia</h1>
-				<!--<div id="dropfiles" class="dropfile" ondrop="upload(event, this)" ondragover="onDrag(event, this)" ondragleave="onLeave(event, this)"></div> -->
-				<input type="file" name="files[]" id="filesupload" multiple="multiple">
-				<input type="submit" value="Loo eksperiment" name="submit">
+			</div>
+		<br>
+		<br>
+				<!--<h1>Lohista failid siia</h1>
+				<div id="dropfiles" class="dropfile" ondrop="upload(event, this)" ondragover="onDrag(event, this)" ondragleave="onLeave(event, this)"></div> -->
+
+
+                        <input type="file" name="files[]" id="filesupload" multiple="multiple">
+                    </div>
+                </div>
+				<br>
+				<div>
+				<input type="submit" class="btn btn-success" value="Loo eksperiment" name="submit">
+			</div>
 			</form>
 		</div>
 	</p>

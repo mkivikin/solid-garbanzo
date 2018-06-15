@@ -88,11 +88,58 @@ require("control.js");
 ?>
 <!DOCTYPE html>
 <head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 </head>
+
+<style>
+	body{
+		padding-top: 5%;
+		background-color: #F8F9F9; 
+	}
+	.padded{
+		padding-top:2px;
+	}
+	.h1color{
+		color:#2FC0AE;
+	}
+	.errorwidth{
+		max-width: 100%
+	}
+</style>
+
+
 <body>
+
+<!-- Navbar -->
+     <nav class="shadow navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.php">Stressikaart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="map.php">Kaart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="upload.php">Lisa faile</a>
+            </li>
+            <li class="nav-item">
+              <a class="login" href="login.php">Logi sisse</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
 <div class="container">
 <form  method="POST">
-  <h1>Registreeri</h1><br/>
+  <h1 class="h1color">Kasutaja loomine</h1><br/>
 
   <span class="input"></span>
   <input type="text" name="signupFirstName" placeholder="Eesnimi" required />
@@ -108,7 +155,7 @@ require("control.js");
   <input type="password" name="confirmPassword" id="cpassword" onchange="checkPassword()" placeholder="Korda parooli"required />
   <span id='message'></span>
   <br></br>
-  <button type="submit" name="signupButton" id="submit" value="submit" title="Submit form" class="icon-arrow-right" onclick="checkPassword()" ><span>Registreeru</span></button>
+  <button type="submit" name="signupButton" id="submit" value="submit" title="Submit form" class="btn btn-success" onclick="checkPassword()" ><span>Registreeru</span></button>
 </form>
 </div>
 
