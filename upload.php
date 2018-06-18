@@ -68,12 +68,12 @@ if(!empty($_POST["experimentName"])) {
         	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 			}
 
- .login-header{
+ 		.login-header{
         font-size: 30px;
         padding-top: 1px;
         padding-bottom: 20px;
         color: #2FC0AE;
-      }
+      	}
 
 	</style>
 
@@ -93,6 +93,9 @@ if(!empty($_POST["experimentName"])) {
             </li>
             <li class="nav-item">
               <a class="nav-link" href="map.php">Kaart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="experiments.php">Katsed</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="upload.php">Lisa faile</a>
@@ -118,7 +121,7 @@ if(!empty($_POST["experimentName"])) {
 					<option value="Male">Mees</option>
 					<option value="Female">Naine</option>
 				</select>
-
+				<br>
 				<br>
 				<span id="experimentAge">Eksperimendi katsealuse vanus: </span>
 				<select name="experimentAge">

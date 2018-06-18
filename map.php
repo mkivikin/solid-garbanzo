@@ -12,13 +12,17 @@
    body {
    		background-image: none;
    		background-color: #F8F9F9;
-        padding-top: 5%;
-        padding-left: 25%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       }
 
   #map{
     height: 600px;
     width:1000px;
+  }
+  .padded{
+    padding-top: 6%;
   }
 </style>
 </head>
@@ -40,6 +44,9 @@
               <a class="nav-link" href="map.php">Kaart</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="experiments.php">Katsed</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="upload.php">Lisa faile</a>
             </li>
             <li class="nav-item">
@@ -51,11 +58,13 @@
     </nav>
 
 <!-- MAP -->
+<div class="padded">
 <div id="genderFilters"></div>
 <div id="intensitySliderContainer"></div>
 <div id="map"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="mapScript.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodsu1bZRowWo0767dbprzUHMPvVZe7l0&callback=initMap&libraries=visualization"></script>
+</div>
 </body>
 <html>
