@@ -51,7 +51,8 @@
     </nav>
 
 <!-- MAP -->
-<div id= "intensitySliderContainer"></div>
+<div id="genderFilters"></div>
+<div id="intensitySliderContainer"></div>
 <div id="map"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="mapScript.js"></script>

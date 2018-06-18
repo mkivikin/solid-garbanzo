@@ -15,7 +15,6 @@ function createExperiment($experimentName, $experimentCreator, $experimentAge, $
 	if($stmt->fetch()) {
 		return $experimentID;
 	} else {
-		return "Experiment not created";
 	}
 }
 
@@ -169,7 +168,7 @@ function loadExperiments() {
 	$stmt->bind_result($experimentID, $experimentCreator, $ExperimentName, $ExperimentDate, $gender, $age);
 	$stmt->execute();
 	while($stmt->fetch()) {
-		echo '<tr><td>'.$experimentID .'</td><td>'. $experimentCreator .'</td><td>'.$ExperimentDate.'</td><td>' .$ExperimentName .'</td><td>'. $gender .'</td><td>'. $age.'</td><td><a class="btn" href="editExperiment.php?id='.$experimentID.'">Edit</a></td></tr>';
+		echo '<tr><td>'.$experimentID .'</td><td>'. $experimentCreator .'</td><td>'.$ExperimentDate.'</td><td>' .$ExperimentName .'</td><td>'. $gender .'</td><td>'. $age.'</td><td><a class="btn" href="editexperiment.php?id='.$experimentID.'">Edit</a></td></tr>';
 		echo '<br>';
 	}
 	$stmt->close();
@@ -180,10 +179,11 @@ function getRad($x){
 	return $x * pi();
 }
 function getDistance($lat1, $lon1, $lat2, $lon2){
+	//Haversin formula
 	$Radius = 6378137;
 	$dLat = getRad($lat2 - $lat1);
 	$dLon = getRad($lon2 - $lon2);
 	$angle = 2 * asin(sqrt(pow(sin($dLat / 2), 2) + cos(doubleVal($lat1)) * cos(doubleVal($lat2)) * pow(sin($dLon / 2), 2)));
-	return ($angle * $Radius * 1000); //Distance in meters
+	return ($angle * $Radius * 1000); //Distance in kilometers*1000
 }
 ?>

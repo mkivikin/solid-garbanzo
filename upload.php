@@ -111,14 +111,14 @@ if(!empty($_POST["experimentName"])) {
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 				<input class="form-control" type="text" name="experimentName" id="experimentName" placeholder="Eksperimendi nimi">
 				<br>
-			
-					<span id="experimentGender">Eksperimendi katsealuse sugu: </span>
+
+				<span id="experimentGender">Eksperimendi katsealuse sugu: </span>
 					<select name="experimentGender">
 					<option value="">Select...</option>
 					<option value="Male">Mees</option>
 					<option value="Female">Naine</option>
 				</select>
-	
+
 				<br>
 				<span id="experimentAge">Eksperimendi katsealuse vanus: </span>
 				<select name="experimentAge">
