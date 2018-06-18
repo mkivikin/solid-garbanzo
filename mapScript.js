@@ -3,7 +3,7 @@ function initMap(){
       zoom:10,
       streetViewControl: false,
       center:{lat:59.4286454, lng:24.7321419},
-      maxZoom: 19
+      maxZoom: 16
     }
 
     var map = new google.maps.Map(document.getElementById('map'), options);
@@ -17,7 +17,6 @@ function initMap(){
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var markers = JSON.parse(this.responseText);
-            console.log(markers);
             createHeatmap(markers, map);
         };
       }
@@ -47,33 +46,30 @@ function createHeatmap(markers, map) {
       map: map
     });
     heatmap.setOptions({
-      maxIntensity: 2000});
-
-
-                    google.maps.event.addListener(map, 'zoom_changed', function(){
-                        var zoom = map.getZoom();
-                        console.log(zoom);
-                        if (zoom == 16){
-                          heatmap.setOptions({
-                          maxIntensity: 2000
-                        });
-                      } else {
-                        heatmap.setOptions({
-                          maxIntensity: 3000
-                        });
-                      }
-                    });
+    maxIntensity: 300});
+    document.getElementById('intensitySliderContainer').outerHTML = '<span>Intensiivsus: </span><input type="range" min="200" max="4000" defaultvalue="heatmap.getOptions(maxIntensity);" class="slider" id="intensitySlider">';
+    let slider = document.getElementById('intensitySlider');
+    slider.addEventListener("input", sliderFunction);
+    google.maps.event.addListener(map, 'zoom_changed', function(){
+        var zoom = map.getZoom();
+        if (zoom == 16){
+          heatmap.setOptions({
+          maxIntensity: 200
+        });
+      } else {
+        heatmap.setOptions({
+          maxIntensity: 400
+        });
+      }
+    });
+    function sliderFunction(){
+      let intense = document.getElementById('intensitySlider').value;
+      heatmap.setOptions({
+        maxIntensity: intense
+      });
+    }
 }
 
-
-
-function checkBox(id){
-  let checkBox = document.getElementById(id);
-  if(checkBox.checked){
-    fetchMarkers("byExperimentID", id);
-    console.log("Ahoy");
-  }
-}
 
 function reciprocal(number){
 var gcd = function(a, b) {
@@ -94,7 +90,6 @@ numerator /= divisor;                         // Should be 687
 denominator /= divisor;                       // Should be 2000
 
 var test = denominator / numerator;
-console.log(test);
 return test;
 }
 

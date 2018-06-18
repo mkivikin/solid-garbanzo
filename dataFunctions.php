@@ -71,19 +71,41 @@ function readGpx($fileName, $experimentID){
 	//var_dump($lines);
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"],$GLOBALS["serverPassword"], $GLOBALS["database"]);
 	$stmt = $mysqli->prepare("INSERT INTO Markers (ExperimentID, Latitude, Longitude, MarkerTime) values (?, ?, ?, ?)");
+	$haversineCounter = 0;
+	$prevLat;
+	$prevLon;
 	foreach($lines->trk->trkseg as $segment) {
 	 $count = 0;
 		foreach($segment->trkpt as $point) {
+			if($haversineCounter == 0) {
 				$insertTime = str_replace('T', ' ', $point->time);
 				$insertTime = str_replace('Z', ' ', $insertTime);
 				$stmt->bind_param('isss', $experimentID, $point['lat'], $point['lon'], $insertTime);
 				$stmt->execute();
+				$prevLat = $point['lat'];
+				$prevLon = $point['lon'];
+			} else {
+				$distance = getDistance($point['lat'], $point['lon'], $prevLat, $prevLon);
+				//if(doubleVal($distance) > 0.5){
+				if($prevLat != $point['lat'] && $prevLon != $point['lon']) {
+					$insertTime = str_replace('T', ' ', $point->time);
+					$insertTime = str_replace('Z', ' ', $insertTime);
+					$stmt->bind_param('isss', $experimentID, $point['lat'], $point['lon'], $insertTime);
+					$stmt->execute();
+				} else {
+					//skip marker
+				}
+			}
+			}
+			$prevLat = $point['lat'];
+			$prevLon = $point['lon'];
 			$count++;
+			$haversineCounter++;
 		}
+		$stmt->close();
+		$mysqli->close();
 	}
-	$stmt->close();
-	$mysqli->close();
-}
+
 //=============================END OF GPXREAD===========================================
 
 //=============================START OF MUSEREAD===========================================
@@ -152,5 +174,16 @@ function loadExperiments() {
 	}
 	$stmt->close();
 	$mysqli->close();
+}
+
+function getRad($x){
+	return $x * pi();
+}
+function getDistance($lat1, $lon1, $lat2, $lon2){
+	$Radius = 6378137;
+	$dLat = getRad($lat2 - $lat1);
+	$dLon = getRad($lon2 - $lon2);
+	$angle = 2 * asin(sqrt(pow(sin($dLat / 2), 2) + cos(doubleVal($lat1)) * cos(doubleVal($lat2)) * pow(sin($dLon / 2), 2)));
+	return ($angle * $Radius * 1000); //Distance in meters
 }
 ?>
