@@ -38,7 +38,6 @@ if(isset($_GET["logout"])){
 
      <style>
       body {
-        padding-top: 54px;
         background-image: url("dsg/map.jpg");
         background-size: 100%;
         background-repeat: no-repeat;
@@ -51,9 +50,8 @@ if(isset($_GET["logout"])){
       .shadow {
         box-shadow: 5px 5px 2px grey;
       }
-      .box-max {
-        word-wrap: break-word;
-        text-align: center;
+      .cont{
+        background-color:#D5DBDB;
       }
     </style>
 
@@ -96,14 +94,29 @@ if(isset($_GET["logout"])){
 
   <body>
     <!-- Login button -->
-  
+    <div class="loginbutton">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <a class="btn btn-success" href="login.php">Logi sisse</a>
+        </div>
+      </div>
+    </div>
+
 
 <!-- User guide -->
-<div class="box container textmaxwidth">
+<div class="box container shadow">
   <div class="row">
-        <div class="text-center box btn">
-  <p>User guide tuleb siia
-  </p>
+        <div>
+  <p style="color:#2C3E50"><b>Lihtne õpetus veebilehe kasutamiseks:</b></p>
+  <li class="cont">Failide üleslaadimiseks ja eksperimenteerijate kontrollimiseks on tarvis kasutajat, seega esimese asjana tuleb registeerida endale uus kasutaja või sisse logida juba olemasoleva kasutajaga.</li>
+  <br>
+  <li>Pärast sisselogimist on võimalik liikuda navigatsiooniribal “Katsed” ja “Lisa faile” lehtedele ning seal ka tegutseda.</li>
+  <br>
+  <li class="cont">”Lisa faile” lehel tuleb anda eksperimendile nimi, sugu ja vanus. Seejärel vajutada nupule “Lehitse” ning valida 1 gpx fail ja sellega samaaegselt loodud csv fail. Seejärel vajutage “Loo eksperiment” ning andmebaasid asuvad tegutsema.</li>
+  <br>
+  <li>Pärast on võimalus kontrollida, kas kõik läks nii nagu ta pidi - lehele “Katsed” ilmub lisatud eksperimendi nimi, sugu ja vanus.</li>
+  <br>
+  <li class="cont">Seejärel võite navigatsiooniribalt liikuda lehele “Kaart” ning kõik muu on Teie eest tehtud.</li>
 </div>
   </div>
 </div>
@@ -111,7 +124,7 @@ if(isset($_GET["logout"])){
 
   </body>
 
-<!-- Footer -->
+<!-- Footer 
 <footer>
     <div class="footer">
       <div class="container">
@@ -140,6 +153,6 @@ if(isset($_GET["logout"])){
         </div> 
       </div>
     </div>
-</footer>
+</footer> -->
 
 </html>

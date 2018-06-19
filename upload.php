@@ -95,6 +95,13 @@ if(!empty($_POST["experimentName"])) {
         color: #2FC0AE;
       	}
 
+      	.shadow {
+        box-shadow: 5px 5px 2px grey;
+      	}
+      	.padded {
+      		margin-left: 5%;
+      	}
+
 	</style>
 
 </head>
@@ -126,22 +133,24 @@ if(!empty($_POST["experimentName"])) {
     </nav>
 
 		<div id="formContainer">
-			<div class="box container">
+			<div class="box container shadow">
+				<p class="login-header">Eksperimentide lisamine</p>
 				<div class="col-xs-12">
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 				<input class="form-control" type="text" name="experimentName" id="experimentName" placeholder="Eksperimendi nimi">
 				<br>
-
-				<span id="experimentGender">Eksperimendi katsealuse sugu: </span>
-					<select name="experimentGender">
-					<option value="">Select...</option>
+				<div class="input-group">
+				<span id="experimentGender">Eksperimendi katsealuse sugu  : </span>
+					<select name="experimentGender" class="form-control padded">
+					<option value="">Sugu...</option>
 					<option value="Male">Mees</option>
 					<option value="Female">Naine</option>
 				</select>
 				<br>
 				<br>
+				<div class="input-group">
 				<span id="experimentAge">Eksperimendi katsealuse vanus: </span>
-				<select name="experimentAge">
+				<select name="experimentAge" class="form-control padded">
 					<option value="">Select...</option>
 					<?php foreach(range(1,120) as $value){
 						echo('<option value="' . $value . '">' . $value . '</option>');
@@ -149,6 +158,7 @@ if(!empty($_POST["experimentName"])) {
 				</select>
 				<br>
 			</div>
+		</div>
 		<br>
 		<br>
 				<!--<h1>Lohista failid siia</h1>

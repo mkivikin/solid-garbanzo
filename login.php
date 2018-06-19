@@ -53,6 +53,9 @@
         padding-bottom: 20px;
         color: #2FC0AE;
       }
+      .shadow {
+        box-shadow: 5px 5px 2px grey;
+        }
     </style>
 </head>
 
@@ -84,7 +87,7 @@
     </nav>
 
 <section id="login">  
-  <div class="box container">
+  <div class="box container shadow">
       <div class="col-xs-12">
          <h1 class="login-header"> <b>Sisselogimine</b></h1>
     <form role="form"  method="POST" id="login-form" autocomplete="off">
