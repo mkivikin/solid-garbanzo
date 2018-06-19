@@ -25,12 +25,11 @@
       .shadow {
         box-shadow: 5px 5px 2px grey;
       }
-      .box-max {
-        word-wrap: break-word;
-        text-align: center;
+      .marx{
+        margin-left: 15%;
       }
     </style>
-
+ </head>
 <!-- Navbar -->
      <nav class="shadow navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -59,10 +58,8 @@
       </div>
     </nav>
 
-  </head>
-
   <body>
-    <!-- Login button -->
+   <!-- Login button -->
     <div class="loginbutton">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -72,19 +69,20 @@
     </div>
 
 <!-- User guide -->
-<div class="box container textmaxwidth">
+<div class="box container textmaxwidth shadow">
   <div class="row">
         <div class="text-center box btn">
-  <p>User guide tuleb siia
-  </p>
-</div>
+  <div class="marx">
+  <p>User guide tuleb siia</p>
+    <li>tähtis jutt jne</li>
   </div>
 </div>
+  </div>
 </div>
 
   </body>
 
-<!-- Footer -->
+<!-- Footer
 <footer>
     <div class="footer">
       <div class="container">
@@ -93,26 +91,25 @@
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
             <h1>Tere</h1>
             <ul class="column list-unstyled">
-              <li><a href="index.html">Sup</a></li>
+              <li><a href="index.php">Sup</a></li>
             </ul>
           </div>
           
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
             <h1>Tere1</h1>
             <ul class="column list-unstyled">
-              <li><a href="uyegiris.html">Niisama</a></li>
+              <li><a href="index.php">Niisama</a></li>
             </ul>
           </div>
            
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
             <h1>Tere2</h1>
             <ul class="column list-unstyled">
-              <li>Sama</li>
+              <li><a href="index.php">Sama</a></li>
             </ul>
           </div>
         </div> 
       </div>
     </div>
-</footer>
-
+</footer> -->
 </html>
