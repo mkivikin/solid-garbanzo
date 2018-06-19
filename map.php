@@ -1,4 +1,17 @@
 <?php
+require('functions.php');
+if(!isset($_SESSION["userid"])){
+  echo'';
+}
+
+if(isset($_GET["logout"])){
+	echo "test";
+	session_destroy();
+	header("Location: login.php");
+	exit();
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,9 +62,16 @@
             <li class="nav-item">
               <a class="nav-link" href="upload.php">Lisa faile</a>
             </li>
-            <li class="nav-item">
-              <a class="login" href="login.php">Logi sisse</a>
-            </li>
+            <?php if(!isset($_SESSION["userid"])){ 
+				echo'<li class="nav-item">
+				<a class="login" href="login.php">Logi sisse</a>
+				</li>';
+				} else {
+				echo'<li class="nav-item">
+				<a class="nav-link" href="?logout=1" >Logi välja!</a>
+				</li>';
+			}
+					?>
           </ul>
         </div>
       </div>

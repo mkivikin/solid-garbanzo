@@ -16,11 +16,11 @@ require("config.php");
 			if ($hash == $PasswordFromDb){
 				$notice = "Logisite sisse!";
 				
-				$_SESSION["userId"] = $id;
-				$_SESSION["username"] = $UserNameFromDb;
-				$_SESSION["firstname"] = $FirstNameFromDb;
-				$_SESSION["lastname"] = $LastNameFromDb;
-				$_SESSION["userEmail"] = $EmailFromDb;
+				$_SESSION["userid"] = $UserId;
+				$_SESSION["UserName"] = $UserNameFromDb;
+				$_SESSION["FirstName"] = $FirstNameFromDb;
+				$_SESSION["LastName"] = $LastNameFromDb;
+				$_SESSION["Email"] = $EmailFromDb;
 				
 				
 				header("Location: index.php");
@@ -47,6 +47,7 @@ function signUp($signupUserName, $signupPassword, $signupEmail, $signupFirstName
 	if ($stmt->execute()){
 		//echo "\n Õnnestus!";
 		//echo("<script>location.href = '/~rooppeet/Veebiprogre/login.php$msg';</script>");
+		header("Location: login.php");
 		exit();
 	} else {
 		echo "\n Tekkis viga : " .$stmt->error;

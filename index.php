@@ -1,3 +1,29 @@
+<?php
+//Et pääseks ligi funktsioonidele ja sessionile
+
+$notice = "";
+require("config.php");
+require("functions.php");
+	
+If(isset($_SESSION["UserName"])){
+    echo" <script type=\"text/javascript\">
+            ;document.getElementById(une).style.display = 'block';
+            </script>
+        ";
+	echo "Teretulemast " . $_SESSION['UserName'];
+
+}	
+
+if(isset($_GET["logout"])){
+	echo "test";
+	session_destroy();
+	header("Location: login.php");
+	exit();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,11 +51,12 @@
       .shadow {
         box-shadow: 5px 5px 2px grey;
       }
-      .marx{
-        margin-left: 15%;
+      .box-max {
+        word-wrap: break-word;
+        text-align: center;
       }
     </style>
- </head>
+
 <!-- Navbar -->
      <nav class="shadow navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -50,39 +77,41 @@
             <li class="nav-item">
               <a class="nav-link" href="upload.php">Lisa faile</a>
             </li>
-            <li class="nav-item">
-              <a class="login" href="register.php">Registreeri</a>
-            </li>
+              <?php if(!isset($_SESSION["userid"])){ 
+				echo'<li class="nav-item">
+				<a class="login" href="login.php">Logi sisse</a>
+				</li>';
+				} else {
+				echo'<li class="nav-item">
+				<a class="nav-link" href="?logout=1" >Logi välja!</a>
+				</li>';
+			}
+					?>
           </ul>
         </div>
       </div>
     </nav>
 
+  </head>
+
   <body>
-   <!-- Login button -->
-    <div class="loginbutton">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <a class="btn btn-success" href="login.php">Logi sisse</a>
-        </div>
-      </div>
-    </div>
+    <!-- Login button -->
+  
 
 <!-- User guide -->
-<div class="box container textmaxwidth shadow">
+<div class="box container textmaxwidth">
   <div class="row">
         <div class="text-center box btn">
-  <div class="marx">
-  <p>User guide tuleb siia</p>
-    <li>tähtis jutt jne</li>
-  </div>
+  <p>User guide tuleb siia
+  </p>
 </div>
   </div>
+</div>
 </div>
 
   </body>
 
-<!-- Footer
+<!-- Footer -->
 <footer>
     <div class="footer">
       <div class="container">
@@ -91,25 +120,26 @@
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
             <h1>Tere</h1>
             <ul class="column list-unstyled">
-              <li><a href="index.php">Sup</a></li>
+              <li><a href="index.html">Sup</a></li>
             </ul>
           </div>
           
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
             <h1>Tere1</h1>
             <ul class="column list-unstyled">
-              <li><a href="index.php">Niisama</a></li>
+              <li><a href="uyegiris.html">Niisama</a></li>
             </ul>
           </div>
            
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
             <h1>Tere2</h1>
             <ul class="column list-unstyled">
-              <li><a href="index.php">Sama</a></li>
+              <li>Sama</li>
             </ul>
           </div>
         </div> 
       </div>
     </div>
-</footer> -->
+</footer>
+
 </html>

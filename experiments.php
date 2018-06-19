@@ -1,5 +1,26 @@
 <?php
   require('dataFunctions.php');
+  require('functions.php');
+
+  	//Kui pole sisseloginud, liigume login lehele
+if(!isset($_SESSION["userid"])){
+	header("Location: login.php");
+	exit();
+}
+
+ if(!isset($_SESSION["userid"])){
+			echo'<li class="nav-item">
+              <a class="login" href="register.php">Registreeri</a>
+            </li>';
+ }
+ 
+ //Logi välja funktsioon
+if(isset($_GET["Logout"])){
+	session_destroy();
+	header("Location: login.php");
+	exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,9 +72,6 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="upload.php">Lisa faile</a>
-            </li>
-            <li class="nav-item">
-              <a class="login" href="register.php">Registreeri</a>
             </li>
           </ul>
         </div>
