@@ -46,6 +46,9 @@
               <a class="nav-link" href="map.php">Kaart</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="experiments.php">Katsed</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="upload.php">Lisa faile</a>
             </li>
             <li class="nav-item">
