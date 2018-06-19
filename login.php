@@ -32,8 +32,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="vendor/bootstrap/css/upload.css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
   <title>Sisselogimine</title>
 
     <style>
@@ -49,6 +48,9 @@
         padding-bottom: 20px;
         color: #2FC0AE;
       }
+      .shadow {
+        box-shadow: 5px 5px 2px grey;
+        }
     </style>
 </head>
 
@@ -80,7 +82,7 @@
     </nav>
 
 <section id="login">  
-  <div class="box container">
+  <div class="box container shadow">
       <div class="col-xs-12">
          <h1 class="login-header"> <b>Sisselogimine</b></h1>
     <form role="form" action="javascript:;" method="POST" id="login-form" autocomplete="off">
