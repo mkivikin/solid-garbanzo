@@ -1,8 +1,6 @@
 <?php
 require('dataFunctions.php');
 require('functions.php');
-
-
 if(!isset($_SESSION["userid"])){
 	header("Location: login.php");
 	exit();
@@ -95,13 +93,6 @@ if(!empty($_POST["experimentName"])) {
         color: #2FC0AE;
       	}
 
-      	.shadow {
-        box-shadow: 5px 5px 2px grey;
-      	}
-      	.padded {
-      		margin-left: 5%;
-      	}
-
 	</style>
 
 </head>
@@ -127,30 +118,38 @@ if(!empty($_POST["experimentName"])) {
             <li class="nav-item">
               <a class="nav-link" href="upload.php">Lisa faile</a>
             </li>
+						<?php if(!isset($_SESSION["userid"])){
+							echo'<li class="nav-item">
+							<a class="login" href="login.php">Logi sisse</a>
+							</li>';
+							} else {
+							echo'<li class="nav-item">
+							<a class="nav-link" href="?logout=1" >Logi välja!</a>
+							</li>';
+						}
+						?>
           </ul>
         </div>
       </div>
     </nav>
 
 		<div id="formContainer">
-			<div class="box container shadow">
-				<p class="login-header">Eksperimentide lisamine</p>
+			<div class="box container">
 				<div class="col-xs-12">
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 				<input class="form-control" type="text" name="experimentName" id="experimentName" placeholder="Eksperimendi nimi">
 				<br>
-				<div class="input-group">
-				<span id="experimentGender">Eksperimendi katsealuse sugu  : </span>
-					<select name="experimentGender" class="form-control padded">
-					<option value="">Sugu...</option>
+
+				<span id="experimentGender">Eksperimendi katsealuse sugu: </span>
+					<select name="experimentGender">
+					<option value="">Select...</option>
 					<option value="Male">Mees</option>
 					<option value="Female">Naine</option>
 				</select>
 				<br>
 				<br>
-				<div class="input-group">
 				<span id="experimentAge">Eksperimendi katsealuse vanus: </span>
-				<select name="experimentAge" class="form-control padded">
+				<select name="experimentAge">
 					<option value="">Select...</option>
 					<?php foreach(range(1,120) as $value){
 						echo('<option value="' . $value . '">' . $value . '</option>');
@@ -158,7 +157,6 @@ if(!empty($_POST["experimentName"])) {
 				</select>
 				<br>
 			</div>
-		</div>
 		<br>
 		<br>
 				<!--<h1>Lohista failid siia</h1>

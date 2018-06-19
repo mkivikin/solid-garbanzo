@@ -1,7 +1,7 @@
 <?php
 
 $database = "if17_Stressmap";
-require('../../config.php');
+require('config.php');
 
 //=============================START OF GPXREAD===========================================
 function createExperiment($experimentName, $experimentCreator, $experimentAge, $experimentGender) {

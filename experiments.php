@@ -13,7 +13,7 @@ if(!isset($_SESSION["userid"])){
               <a class="login" href="register.php">Registreeri</a>
             </li>';
  }
- 
+
  //Logi välja funktsioon
 if(isset($_GET["Logout"])){
 	session_destroy();
@@ -73,6 +73,16 @@ if(isset($_GET["Logout"])){
             <li class="nav-item">
               <a class="nav-link" href="upload.php">Lisa faile</a>
             </li>
+            <?php if(!isset($_SESSION["userid"])){
+              echo'<li class="nav-item">
+              <a class="login" href="login.php">Logi sisse</a>
+              </li>';
+              } else {
+              echo'<li class="nav-item">
+              <a class="nav-link" href="?logout=1" >Logi välja!</a>
+              </li>';
+              }
+            ?>
           </ul>
         </div>
       </div>
@@ -97,6 +107,6 @@ if(isset($_GET["Logout"])){
   loadExperiments();
  ?>
 </table>
-</div>    
+</div>
 </body>
 <html>

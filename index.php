@@ -4,15 +4,6 @@
 $notice = "";
 require("config.php");
 require("functions.php");
-	
-If(isset($_SESSION["UserName"])){
-    echo" <script type=\"text/javascript\">
-            ;document.getElementById(une).style.display = 'block';
-            </script>
-        ";
-	echo "Teretulemast " . $_SESSION['UserName'];
-
-}	
 
 if(isset($_GET["logout"])){
 	echo "test";
@@ -33,7 +24,7 @@ if(isset($_GET["logout"])){
     <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-   
+
     <title>Stressikaart</title>
 
      <style>
@@ -75,16 +66,16 @@ if(isset($_GET["logout"])){
             <li class="nav-item">
               <a class="nav-link" href="upload.php">Lisa faile</a>
             </li>
-              <?php if(!isset($_SESSION["userid"])){ 
-				echo'<li class="nav-item">
-				<a class="login" href="login.php">Logi sisse</a>
-				</li>';
-				} else {
-				echo'<li class="nav-item">
-				<a class="nav-link" href="?logout=1" >Logi välja!</a>
-				</li>';
-			}
-					?>
+              <?php if(!isset($_SESSION["userid"])){
+								echo'<li class="nav-item">
+								<a class="login" href="login.php">Logi sisse</a>
+								</li>';
+								} else {
+								echo'<li class="nav-item">
+								<a class="nav-link" href="?logout=1" >Logi välja!</a>
+								</li>';
+							}
+							?>
           </ul>
         </div>
       </div>
@@ -94,14 +85,16 @@ if(isset($_GET["logout"])){
 
   <body>
     <!-- Login button -->
-    <div class="loginbutton">
+		<?php if(!isset($_SESSION["userid"])){
+    echo'<div class="loginbutton">
       <div class="row">
         <div class="col-lg-12 text-center">
           <a class="btn btn-success" href="login.php">Logi sisse</a>
         </div>
       </div>
-    </div>
-
+    </div>';
+	}
+?>
 
 <!-- User guide -->
 <div class="box container shadow">
@@ -124,33 +117,33 @@ if(isset($_GET["logout"])){
 
   </body>
 
-<!-- Footer 
+<!-- Footer
 <footer>
     <div class="footer">
       <div class="container">
         <div class="row">
-        
+
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
             <h1>Tere</h1>
             <ul class="column list-unstyled">
               <li><a href="index.html">Sup</a></li>
             </ul>
           </div>
-          
+
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
             <h1>Tere1</h1>
             <ul class="column list-unstyled">
               <li><a href="uyegiris.html">Niisama</a></li>
             </ul>
           </div>
-           
+
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
             <h1>Tere2</h1>
             <ul class="column list-unstyled">
               <li>Sama</li>
             </ul>
           </div>
-        </div> 
+        </div>
       </div>
     </div>
 </footer> -->
