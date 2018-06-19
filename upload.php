@@ -6,7 +6,7 @@ require('functions.php');
 if(!isset($_SESSION["userid"])){
 	header("Location: login.php");
 	exit();
-}		
+}
 
  if(!isset($_SESSION["userid"])){
 			echo'<li class="nav-item">
@@ -59,7 +59,7 @@ if(!empty($_POST["experimentName"])) {
 				  }*/
 			}
 			if(!empty($uploaded)) {
-				$experimentID = createExperiment($_POST["experimentName"], 53, $_POST["experimentGender"] ,$_POST["experimentAge"]);
+				$experimentID = createExperiment($_POST["experimentName"], $_SESSION["userid"], $_POST["experimentGender"] ,$_POST["experimentAge"]);
 				FilestoDB($uploaded, $experimentID);
 			}
 	}
