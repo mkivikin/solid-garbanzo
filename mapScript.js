@@ -50,9 +50,8 @@ function createHeatmap(markers, map) {
     document.getElementById('intensitySliderContainer').outerHTML = '<span>Maksimaalne intensiivsus: </span><input type="range" min="200" max="4000" defaultvalue="heatmap.getOptions(maxIntensity);" class="slider" id="intensitySlider">';
     let slider = document.getElementById('intensitySlider');
     slider.addEventListener("input", sliderFunction);
-    document.getElementById('genderFilters').outerHTML = '<input type="checkbox" class="genderFilter" name="gender" value="0" id="men"> Mehed <input type="checkbox" class="genderFilter" name="gender" value="1" id="women">Naised<br>';
-    document.getElementById('men').addEventListener("change", checkFilters);
-    document.getElementById('women').addEventListener("change", checkFilters);
+    document.getElementById('men').addEventListener("change", checkgenderFilters(markers, map));
+    document.getElementById('women').addEventListener("change", checkgenderFilters(markers, map));
     google.maps.event.addListener(map, 'zoom_changed', function(){
         var zoom = map.getZoom();
         if (zoom == 16){
@@ -73,14 +72,6 @@ function createHeatmap(markers, map) {
     }
 }
 
-function checkFilters(){
-  var filters = new Array();
-  var checkBox = 'input[type="checkbox"]';
-  if ($(checkBox+':checked').length == $(checkBox).length) {
-    filters.push($(checkBox).length);
-    console.log(filters);
- }
-}
 
 function reciprocal(number){
 var gcd = function(a, b) {
@@ -114,4 +105,20 @@ function theFilter(input, key){
     }
   }
   return(filteredInput);
+}
+
+function checkgenderFilters(markers, map){
+  let filtered
+  if(document.getElementById('men').checked) {
+    let filtered = theFilter(markers, "0");
+    console.log("works");
+  }
+  if(document.getElementById('women').checked) {
+    console.log("works2");
+    let filtered = theFilter(markers, "1");
+  } else {
+    let filtered = markers
+    console.log("works3");
+  }
+  createHeatmap(filtered, map);
 }

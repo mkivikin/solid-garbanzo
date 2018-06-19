@@ -51,8 +51,11 @@
     </nav>
 
 <!-- MAP -->
-<div id="genderFilters"></div>
 <div id="intensitySliderContainer"></div>
+<div id="genderFilters">
+  <input type="checkbox" class="genderFilter" name="gender" value="0" id="men"> Mehed
+  <input type="checkbox" class="genderFilter" name="gender" value="1" id="women">Naised<br>
+</div>
 <div id="map"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="mapScript.js"></script>
