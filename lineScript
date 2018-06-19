@@ -1,0 +1,25 @@
+/*if(counter != 0) {
+  posprev = new google.maps.LatLng(markers[counter-1][1], markers[counter-1][2]);
+  color = getRandomColor();
+  var pathBetween = new google.maps.Polyline({
+    path: [posprev, pos],
+    strokeColor: "000000",
+    strokeOpacity: 0.6,
+    strokeWeight: Math.floor((Math.random() * 20) + 1)
+  });
+  pathBetween.setMap(map);
+}*/
+
+/*var infowindow = new google.maps.InfoWindow({
+  content: markers[m][0].toString()
+});
+
+var marker = new google.maps.Marker({
+      map: map,
+      position: pos,
+      title : toString(markers[m][0])
+});
+counter++
+marker.addListener('click', function() {
+infowindow.open(map, this);
+});*/

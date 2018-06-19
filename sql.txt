@@ -1,0 +1,174 @@
+*Add the functionality to filter out points by experiment.
+
+SELECT Markers.MarkerID, Markers.ExperimentID, Markers.Latitude, Markers.Longitude, Markers.MarkerTime, Measurements.MeasurementID, Measurements.AlphaValue, Measurements.BetaValue, Measurements.GammaValue, Measurements.ThetaValue, Measurements.DeltaValue
+FROM Markers 
+INNER JOIN Measurements ON Markers.MarkerID = Measurements.MarkerID
+WHERE ExperimentID = 1;
+
+*Add the functionality to filter out points by the experimenter
+
+SELECT Markers.MarkerID, Markers.ExperimentID, Markers.Latitude, Markers.Longitude, Markers.MarkerTime, Users.UserID, Users.UserName, Experiments.ExperimentCreator, Experiments.ExperimentID, Experiments.ExperimentDate, Experiments.ExperimentName
+FROM Markers
+INNER JOIN Experiments ON Experiments.ExperimentID = Markers.ExperimentID
+INNER JOIN Users ON Users.UserID = Experiments.ExperimentCreator
+WHERE Users.UserID = 1;
+
+
+*Add the functionality to filter out points by upload date.
+
+
+SELECT Markers.MarkerID, Markers.ExperimentID, Markers.Latitude, Markers.Longitude, Markers.MarkerTime, Files.FileUploaded, Files.ExperimentID, Experiments.ExperimentCreator, Experiments.ExperimentID, Experiments.ExperimentDate, Experiments.ExperimentName
+FROM Markers
+INNER JOIN Experiments ON Experiments.ExperimentID = Markers.ExperimentID
+INNER JOIN Files ON Files.ExperimentID = Experiments.ExperimentID
+WHERE Experiments.ExperimentID = 1;
+
+
+Add the functionality to filter out points by experiment.
+
+// Create connection
+$conn = new mysqli($serverHost, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT Markers.MarkerID, Markers.ExperimentID, Markers.Latitude, Markers.Longitude, Markers.MarkerTime, Measurements.MeasurementID, 
+Measurements.AlphaValue, Measurements.BetaValue, Measurements.GammaValue, Measurements.ThetaValue, Measurements.DeltaValue FROM Markers 
+INNER JOIN Measurements ON Markers.MarkerID = Measurements.MarkerID WHERE ExperimentID = ?";
+$result = $conn->query($sql);
+
+//Close connection
+$conn->close();
+
+
+
+Add the functionality to filter out points by the experimenter
+
+// Create connection
+$conn = new mysqli($serverHost, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT Markers.MarkerID, Markers.ExperimentID, Markers.Latitude, Markers.Longitude, Markers.MarkerTime, Users.UserID, 
+Users.UserName, Experiments.ExperimentCreator, Experiments.ExperimentID, Experiments.ExperimentDate, Experiments.ExperimentName FROM Markers 
+INNER JOIN Experiments ON Experiments.ExperimentID = Markers.ExperimentID 
+INNER JOIN Users ON Users.UserID = Experiments.ExperimentCreator WHERE ExperimentID = ?";
+$result = $conn->query($sql);
+
+//Close connection
+$conn->close();
+
+
+Add the functionality to filter out points by the experimenter
+
+// Create connection
+$conn = new mysqli($serverHost, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT Markers.MarkerID, Markers.ExperimentID, Markers.Latitude, Markers.Longitude, Markers.MarkerTime, 
+Files.FileUploaded, Files.ExperimentID, Experiments.ExperimentCreator, Experiments.ExperimentID, Experiments.ExperimentDate, Experiments.ExperimentName FROM Markers 
+INNER JOIN Experiments ON Experiments.ExperimentID = Markers.ExperimentID 
+INNER JOIN Files ON Files.ExperimentID = Experiments.ExperimentID WHERE ExperimentID = ?";
+$result = $conn->query($sql);
+
+//Close connection
+$conn->close();
+
+
+SELECT AVG(Measurements.AlphaValue), Markers.Latitude, Markers.Longitude, Markers.MarkerID
+FROM Measurements
+INNER JOIN Markers
+ON Measurements.MarkerID = Markers.MarkerID
+GROUP BY MarkerID;
+
+
+
+
+MEGATABEL
+
+DROP PROCEDURE IF EXISTS m1;
+DELIMITER //
+CREATE PROCEDURE m1()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE a INT;
+  DECLARE cur1 CURSOR FOR SELECT DISTINCT MarkerID From Measurements;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+  drop temporary table if exists medians_0;
+  CREATE TEMPORARY TABLE medians_0(
+     marker_id INT,
+     alphamedian DOUBLE,
+     betamedian DOUBLE,
+     gammamedian DOUBLE,
+     thetamedian DOUBLE,
+     deltamedian DOUBLE
+
+  );
+  OPEN cur1;
+  read_loop: LOOP
+    FETCH cur1 INTO a;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    drop temporary table if exists data_0;
+    CREATE TEMPORARY TABLE data_0 AS
+     SELECT * FROM Measurements WHERE MarkerID=a;
+
+    set @cr := (select count(*) from data_0);
+    set @row_id := 0;
+    SET @alphamed:=(SELECT AVG(AlphaValue) FROM
+    (select @row_id:= @row_id + 1 AS nr, AlphaValue
+    from data_0 ORDER BY AlphaValue) AS abi
+    WHERE nr  between @cr/2.0 and @cr/2.0 + 1);
+
+    set @cr := (select count(*) from data_0);
+    set @row_id := 0;
+    SET @betamed:=(SELECT AVG(BetaValue) FROM
+    (select @row_id:= @row_id + 1 AS nr, BetaValue
+    from data_0 ORDER BY BetaValue) AS abi
+    WHERE nr  between @cr/2.0 and @cr/2.0 + 1);
+
+    set @cr := (select count(*) from data_0);
+    set @row_id := 0;
+    SET @gammamed:=(SELECT AVG(GammaValue) FROM
+    (select @row_id:= @row_id + 1 AS nr, GammaValue
+    from data_0 ORDER BY GammaValue) AS abi
+    WHERE nr  between @cr/2.0 and @cr/2.0 + 1);
+
+    set @cr := (select count(*) from data_0);
+    set @row_id := 0;
+    SET @thetamed:=(SELECT AVG(ThetaValue) FROM
+    (select @row_id:= @row_id + 1 AS nr, ThetaValue
+    from data_0 ORDER BY ThetaValue) AS abi
+    WHERE nr  between @cr/2.0 and @cr/2.0 + 1);
+
+    set @cr := (select count(*) from data_0);
+    set @row_id := 0;
+    SET @deltamed:=(SELECT AVG(DeltaValue) FROM
+    (select @row_id:= @row_id + 1 AS nr, DeltaValue
+    from data_0 ORDER BY DeltaValue) AS abi
+    WHERE nr  between @cr/2.0 and @cr/2.0 + 1);
+
+    INSERT INTO medians_0 VALUES(a, @alphamed, @betamed, @gammamed, @thetamed, @deltamed);
+    DROP TABLE data_0;
+  END LOOP;
+  SELECT medians_0.marker_id, medians_0.alphamedian, medians_0.betamedian, medians_0.gammamedian, medians_0.thetamedian, medians_0.deltamedian, 
+  Markers.Latitude, Markers.Longitude, Experiments.ExperimentID, Experiments.ExperimentCreator,
+  Experiments.ExperimentDate, Experiments.Gender, Experiments.Age 
+  FROM medians_0
+  INNER JOIN Markers
+  ON medians_0.marker_id = Markers.MarkerID
+  INNER JOIN Experiments
+  ON Markers.ExperimentID = Experiments.experimentID
+  GROUP BY MarkerID;
+  DROP TABLE medians_0;
+  CLOSE cur1;
+END //
+DELIMITER ;
+

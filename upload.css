@@ -1,0 +1,17 @@
+.dropfile {
+  background-color: #DDD;
+  border: #999 5px solid;
+  width: 200px;
+  height:300px;
+  padding: 5px;
+  font-size: 18px;
+}
+
+.dropfileOver {
+  background-color: #AAA;
+  border: #666 7px solid;
+  width: 205px;
+  height: 305px;
+  padding: 10px;
+  transition: 2s;
+}
