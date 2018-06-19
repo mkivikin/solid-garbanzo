@@ -59,19 +59,19 @@ function checkPassword() {
 		
 		if(pw == confirmedPw) {
 			//alert("Paroolid kattuvad
-			document.getElementById('span2').innerHTML="Paroolid kattuvad";
+			document.getElementById('span2').innerHTML="<div style='color:#2FC0AE'>Paroolid kattuvad</div>";
 		} else {
 			//alert("Paroolid ei kattu");
-			document.getElementById('span2').innerHTML="Paroolid ei kattu";
+			document.getElementById('span2').innerHTML="<div style='color:#E74C3C'>Paroolid ei kattu</div>";
 		}
 }
 
 function validate() {
         let name = document.getElementById('username').value;
 		if(name > 5){
-			document.getElementById('span1').innerHTML="Kasutajatunnus on sobilik";
+			document.getElementById('span1').innerHTML="<div style='color:#2FC0AE'>Kasutajatunnus on sobilik</div>";
         } else {
-           document.getElementById('span1').innerHTML="Kasutajatunnus peab olema vähemalt 6 tähemärki pikk";
+           document.getElementById('span1').innerHTML="<div style='color:#2FC0AE'>Kasutajatunnus peab olema vähemalt 6 tähemärki pikk</div>";
         }
     }
 
