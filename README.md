@@ -13,6 +13,8 @@ Marek Kivikink, Peeter Roop, Oskar Juksar, Tuule Põldsaar
 # Paigaldusjuhend
   - Lae alla failid: https://github.com/mkivikin/solid-garbanzo.git
   - Pane need greenysse üles.
+  - Loo andmebaasi tabelid sql.txt faili abil, kuskil failides veel peidus ka protseduur m1
+  - Konfigureeri config.php vastavalt oma andmebaasile
   - Tehtud!
 # Litsents 
 https://github.com/mkivikin/solid-garbanzo/blob/master/LICENSE
