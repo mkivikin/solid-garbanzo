@@ -8,13 +8,17 @@ CREATE TABLE Users (
     PRIMARY KEY (UserID)
 );
 
-CREATE TABLE Experiments (
-  ExperimentID int NOT NULL AUTO_INCREMENT,
-  ExperimentCreator int NOT NULL,
-  ExperimentDate Date NOT NULL,
-  PRIMARY KEY (ExperimentID),
-  FOREIGN KEY (ExperimentCreator) REFERENCES Users(UserID)
-);
+CREATE TABLE `Experiments` (
+  `ExperimentID` int(11) NOT NULL AUTO_INCREMENT,
+  `ExperimentCreator` int(11) NOT NULL,
+  `ExperimentDate` timestamp NULL DEFAULT current_timestamp(),
+  `ExperimentName` varchar(50) NOT NULL,
+  `Gender` varchar(5) NOT NULL,
+  `Age` int(3) NOT NULL,
+  PRIMARY KEY (`ExperimentID`),
+  KEY `ExperimentCreator` (`ExperimentCreator`),
+  CONSTRAINT `Experiments_ibfk_1` FOREIGN KEY (`ExperimentCreator`) REFERENCES `Users` (`UserID`)
+)
 
 CREATE TABLE Files (
   FileID int NOT NULL AUTO_INCREMENT,
