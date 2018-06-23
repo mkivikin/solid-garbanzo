@@ -11,10 +11,13 @@ Projekt on loodud Tallinna Ülikooli Digitehnoloogiate instituudis tarkvaraarend
 # Projekti liikmed
 Marek Kivikink, Peeter Roop, Oskar Juksar, Tuule Põldsaar
 # Paigaldusjuhend
-  - Lae alla failid: https://github.com/mkivikin/solid-garbanzo.git
-  - Pane need greenysse üles.
-  - Loo andmebaasi tabelid sql.txt faili abil, kuskil failides veel peidus ka protseduur m1
-  - Konfigureeri config.php vastavalt oma andmebaasile
+  - Installeerida oma veebiserverisse PHP versioon: 5.6.31 või kõrgem
+  - Installeerida PHP'le simpleXML ja mySQLI laiendid
+  - Installeerida veebiserverisse MariaDB versiooniga 10.2.8 või uuem (Sobib ka samaväärne mySQL).
+  - Laadida alla failid: https://github.com/mkivikin/solid-garbanzo.git
+  - Laadida need üles oma serverisse lemmik FTP clientiga, näiteks WinSCP.
+  - Luua andmebaasi tabelid sql.txt faili abil, samas failis ka protseduur m1.
+  - Konfigureeri config.php vastavalt oma andmebaasile.
   - Tehtud!
 # Litsents 
 https://github.com/mkivikin/solid-garbanzo/blob/master/LICENSE
