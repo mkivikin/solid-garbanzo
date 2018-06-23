@@ -16,7 +16,7 @@ Marek Kivikink, Peeter Roop, Oskar Juksar, Tuule Põldsaar
   - Installeerida veebiserverisse MariaDB versiooniga 10.2.8 või uuem (Sobib ka samaväärne mySQL).
   - Laadida alla failid: https://github.com/mkivikin/solid-garbanzo.git
   - Laadida need üles oma serverisse lemmik FTP clientiga, näiteks WinSCP.
-  - Luua andmebaasi tabelid sql.txt faili abil, samas failis ka protseduur m1.
+  - Luua andmebaasi tabelid andmebaas.sql faili abil, failist sql.txt luua protseduur m1 (defineeritud kommentaarina megatabel)
   - Konfigureeri config.php vastavalt oma andmebaasile.
   - Tehtud!
 # Litsents 
