@@ -18,7 +18,7 @@ Marek Kivikink, Peeter Roop, Oskar Juksar, Tuule Põldsaar
   - Laadida need üles oma serverisse lemmik FTP clientiga, näiteks WinSCP.
   - Lisada write õigus uploads kaustale
   - Luua andmebaasi tabelid andmebaas.sql faili abil, failist sql.txt luua protseduur m1 (defineeritud kommentaarina megatabel)
-  - Konfigureeri config.php vastavalt oma andmebaasile. (Vajalikud muutujad serverHost, serverUsername, serverPassword oma        vastavate väärtustega)
+  - Konfigureeri config.php vastavalt oma andmebaasile. (Vajalikud muutujad serverHost, serverUsername, serverPassword oma        vastavate väärtustega) ja paiguta see failidega samasse kausta(Kui koodis vastavad muudatused teha võid mujale ka panna).
   - Tehtud!
 # Litsents 
 https://github.com/mkivikin/solid-garbanzo/blob/master/LICENSE
