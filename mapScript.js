@@ -55,11 +55,11 @@ function createHeatmap(markers, map) {
         var zoom = map.getZoom();
         if (zoom == 16){
           heatmap.setOptions({
-          maxIntensity: 200
+          maxIntensity: 100
         });
       } else {
         heatmap.setOptions({
-          maxIntensity: 400
+          maxIntensity: 200
         });
       }
     });
