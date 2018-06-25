@@ -17,7 +17,7 @@ Marek Kivikink, Peeter Roop, Oskar Juksar, Tuule Põldsaar
   - Laadida alla failid: https://github.com/mkivikin/solid-garbanzo.git
   - Laadida need üles oma serverisse lemmik FTP clientiga, näiteks WinSCP.
   - Luua andmebaasi tabelid andmebaas.sql faili abil, failist sql.txt luua protseduur m1 (defineeritud kommentaarina megatabel)
-  - Konfigureeri config.php vastavalt oma andmebaasile.
+  - Konfigureeri config.php vastavalt oma andmebaasile. (Vajalikud muutujad serverHost, serverUsername, serverPassword oma        vastavate väärtustega)
   - Tehtud!
 # Litsents 
 https://github.com/mkivikin/solid-garbanzo/blob/master/LICENSE
